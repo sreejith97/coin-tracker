@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Real-time Price Tracker</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        const socket = io();
+        const toggleButton = document.getElementById("toggle-fetching");
+
+        socket.on("priceUpdate", (data) => {
+          const priceElement = document.getElementById(`price-${data.code}`);
+          if (priceElement) {
+            priceElement.innerText = `${data.name} (${data.symbol}): Current Price: ${data.rate} USD`;
+          } else {
+            const newElement = document.createElement("p");
+            newElement.id = `price-${data.code}`;
+            newElement.innerText = `${data.name} (${data.symbol}): Current Price: ${data.rate} USD`;
+            document.body.appendChild(newElement);
+          }
+        });
+
+        toggleButton.addEventListener("click", async () => {
+          const response = await fetch("/toggle-fetching", { method: "POST" });
+          const data = await response.json();
+          toggleButton.innerText = data.isFetching
+            ? "Stop Fetching"
+            : "Start Fetching";
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Real-time Price Tracker</h1>
+    <button id="toggle-fetching">Start Fetching</button>
+  </body>
+</html>
