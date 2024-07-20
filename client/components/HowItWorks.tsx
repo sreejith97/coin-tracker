@@ -1,8 +1,19 @@
+import Image from "next/image";
+import workImage from "../public/development.png";
+
 export default function HowItWorks() {
   return (
     <section className="flex items-center justify-center lg:flex-row flex-col  w-full lg:my-[200px] my-[100px] md:my-[200px] max-w-[1700px] gap-y-9 lg:gap-y-0">
       <div className="lg:w-1/2 w-full flex justify-center flex-col items-center gap-y-[8px] lg:gap-y-[16px]">
-        <div className="rounded-full w-[140px] h-[140px] bg-slate-200 hidden lg:block"></div>
+        <div className="rounded-full w-[140px] h-[140px] bg-slate-200 hidden lg:block">
+          <Image
+            alt="how it work image"
+            src={workImage}
+            height={300}
+            width={300}
+            className="object-contain"
+          />
+        </div>
         <h1 className="text-[40px] lg:text-[45px] font-bold w-full text-center">
           How IT Works
         </h1>

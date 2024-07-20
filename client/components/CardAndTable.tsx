@@ -8,10 +8,11 @@ export default function CardAndTable() {
     <section className="max-w-[1700px] w-full flex items-center flex-col ">
       <div className="flex flex-row">
         <div className="w-[115px] h-[50px] bg-[#A855F7] rounded-l-full flex justify-center items-center uppercase font-bold cursor-pointer">
-          Chart
+          Table
         </div>
         <div className="w-[115px] h-[50px] bg-[#1E1E1E] rounded-r-full flex justify-center items-center text-[#6A6A6A] uppercase font-bold cursor-pointer">
-          Table
+          {" "}
+          Chart
         </div>
       </div>
       <div className="max-w-[100%] relative">

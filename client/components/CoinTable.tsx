@@ -10,7 +10,7 @@ import {
   setItemsPerPage,
   setSelectedCoin,
   setFetchInformation,
-} from "../Redux/CoinSlice"; 
+} from "../Redux/CoinSlice";
 import io from "socket.io-client";
 import { FaFilter } from "react-icons/fa6";
 import axios from "axios";
@@ -30,7 +30,7 @@ interface Product {
   };
   liquidity: number;
   allTimeHighUSD: number;
-  marketCap: number;
+  cap: number;
   circulatingSupply: number;
   totalSupply: number;
   age: number;
@@ -68,7 +68,7 @@ const CoinTable: React.FC = () => {
   // console.log(selectedCoin);
 
   useEffect(() => {
-    const socket = io("http://localhost:3002");
+    const socket = io(`${process.env.NEXT_PUBLIC_BASE_URL}`);
 
     socket.on("connect", () => {
       console.log("Connected to server");
@@ -81,7 +81,7 @@ const CoinTable: React.FC = () => {
     fetchData();
 
     socket.on("priceUpdate", (data) => {
-      // console.log("Received priceUpdate data:", data);
+      console.log("Received priceUpdate data:", data);
 
       const isArray = (data: any): data is any[] => {
         return Array.isArray(data);
@@ -101,7 +101,7 @@ const CoinTable: React.FC = () => {
           "Value:",
           data
         );
-   
+
         dispatch(setDigitalCoins([]));
       }
     });
@@ -119,7 +119,7 @@ const CoinTable: React.FC = () => {
     };
   }, [dispatch, selectedCoin]);
 
-  // console.log(digitalCoins);
+  console.log(digitalCoins);
 
   useEffect(() => {
     const fetchCurrentStatus = async () => {
@@ -165,7 +165,7 @@ const CoinTable: React.FC = () => {
     currentPage * itemsPerPage
   );
 
-  const [isChecked, setIsChecked] = useState(true); 
+  const [isChecked, setIsChecked] = useState(true);
 
   const toggleCheckbox = async () => {
     try {
@@ -176,7 +176,6 @@ const CoinTable: React.FC = () => {
 
       console.log("Fetching status:", isFetching);
 
-  
       dispatch(setFetchInformation(isFetching));
     } catch (error) {
       console.error(error);
@@ -246,7 +245,7 @@ const CoinTable: React.FC = () => {
                   All Time High
                 </th>
               )}
-              {columnFilters.includes("marketCap") && (
+              {columnFilters.includes("cap") && (
                 <th scope="col" className="px-6 py-3">
                   Market Cap
                 </th>
@@ -286,11 +285,6 @@ const CoinTable: React.FC = () => {
                   Categories
                 </th>
               )}
-              {columnFilters.includes("links") && (
-                <th scope="col" className="px-6 py-3">
-                  Links
-                </th>
-              )}
             </tr>
           </thead>
           <tbody>
@@ -316,7 +310,7 @@ const CoinTable: React.FC = () => {
             <label className="text-white font-semibold">Column Filters:</label>
             <div className="grid grid-cols-3 gap-4 mt-2">
               {[
-                "marketCap",
+                "cap",
                 "circulatingSupply",
                 "totalSupply",
                 "age",
@@ -324,7 +318,6 @@ const CoinTable: React.FC = () => {
                 "markets",
                 "pairs",
                 "categories",
-                "links",
               ].map((col) => (
                 <div key={col} className="flex items-center">
                   <input
@@ -417,7 +410,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, columnFilters }) => {
     delta,
     liquidity,
     allTimeHighUSD,
-    marketCap,
+    cap,
     circulatingSupply,
     totalSupply,
     age,
@@ -425,7 +418,6 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, columnFilters }) => {
     markets,
     pairs,
     categories,
-    links,
   } = product;
 
   return (
@@ -444,9 +436,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, columnFilters }) => {
       {columnFilters.includes("allTimeHighUSD") && (
         <td className="px-6 py-4">{allTimeHighUSD}</td>
       )}
-      {columnFilters.includes("marketCap") && (
-        <td className="px-6 py-4">{marketCap}</td>
-      )}
+      {columnFilters.includes("cap") && <td className="px-6 py-4">{cap}</td>}
       {columnFilters.includes("circulatingSupply") && (
         <td className="px-6 py-4">{circulatingSupply}</td>
       )}
@@ -464,16 +454,7 @@ const ProductRow: React.FC<ProductRowProps> = ({ product, columnFilters }) => {
         <td className="px-6 py-4">{pairs}</td>
       )}
       {columnFilters.includes("categories") && (
-        <td className="px-6 py-4">{categories.join(", ")}</td>
-      )}
-      {columnFilters.includes("links") && (
-        <td className="px-6 py-4">
-          {links.website && <a href={links.website}>Website</a>}
-          {links.whitepaper && <a href={links.whitepaper}>Whitepaper</a>}
-          {links.twitter && <a href={links.twitter}>Twitter</a>}
-          {links.reddit && <a href={links.reddit}>Reddit</a>}
-          {links.discord && <a href={links.discord}>Discord</a>}
-        </td>
+        <td className="px-6 py-4">{categories[0]}</td>
       )}
     </tr>
   );

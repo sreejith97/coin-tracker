@@ -192,7 +192,9 @@ cron.schedule("*/15 * * * *", async () => {
       name: "fetchingStatus",
     });
     if (statusDoc && statusDoc.isFetching) {
-      await axios.post(`http://localhost:${PORT}/toggle-fetching`);
+      await axios.post(
+        `https://coin-tracker-yel9.onrender.com/toggle-fetching`
+      );
     }
   } catch (error) {
     console.error("Error toggling fetching status via cron job:", error);

@@ -12,7 +12,7 @@ export default function Header() {
         </p>
       </div>
       <div>
-        <p>MarketWatch</p>
+        <p className="text-[25px] font-bold">MarketWatch</p>
       </div>
       <div className="flex flex-row justify-between items-center gap-4">
         <p className="w-[103px] text-center font-semibold hidden lg:block">
