@@ -15,7 +15,7 @@
       });
 
       socket.on("priceUpdate", (data) => {
-        console.log("Price updateee:", data?.name, data?.rate);
+        console.log("Price updateee:", data);
       });
 
       socket.on("message", (message) => {

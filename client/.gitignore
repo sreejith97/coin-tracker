@@ -5,14 +5,7 @@
 /.pnp
 .pnp.js
 .yarn/install-state.gz
-./backbone/node_modules
-./backbone/.env*.local
-/backbone/node_modules
-/backbone/.env*.local
-./client/node_modules
-./client/.env*.local
-/client/node_modules
-/client/.env*.local
+
 # testing
 /coverage
 
