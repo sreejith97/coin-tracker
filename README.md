@@ -1,7 +1,7 @@
 
-# Market Tracker
+# Coin Tracker
 
-Welcome to the Digital Market Tracker project! This application allows you to track real-time cryptocurrency prices, filter and paginate data, and manage fetching statuses. The frontend is built using Next.js and TypeScript with state management via Redux Toolkit. The backend is powered by Node.js, Express, MongoDB, and Socket.io for real-time updates. Let's get you started with installing and running the project!
+Welcome to the Digital Coin Tracker project! This application allows you to track real-time cryptocurrency prices, filter and paginate data, and manage fetching statuses. The frontend is built using Next.js and TypeScript with state management via Redux Toolkit. The backend is powered by Node.js, Express, MongoDB, and Socket.io for real-time updates. Let's get you started with installing and running the project!
 
 
 
